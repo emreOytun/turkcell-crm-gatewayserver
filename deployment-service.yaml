@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gatewayserver-deployment
+spec:
+  selector:
+    matchLabels:
+      app: gatewayserver
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gatewayserver
+    spec:
+      containers:
+        - name: gatewayserver
+          image: emreoytun/gatewayserver:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8001  # Updated to match the application's port
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gatewayserver-ssvc
+spec:
+  selector:
+    app: gatewayserver
+  ports:
+    - protocol: "TCP"
+      port: 80             # Port exposed by the service
+      targetPort: 8001     # Port on which the application is listening
+  type: LoadBalancer

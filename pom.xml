@@ -37,6 +37,7 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-gateway-dependencies</artifactId>
+			<version>4.1.0</version>
 			<type>pom</type>
 		</dependency>
 
